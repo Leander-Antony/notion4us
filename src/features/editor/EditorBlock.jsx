@@ -17,8 +17,10 @@ export default function EditorBlock({ blockId, pageId, index, onOpenSlashMenu, o
   if (!block) return null;
 
   useEffect(() => {
-    if (blockRef.current && blockRef.current.innerText !== (block.content || '')) {
-      blockRef.current.innerText = block.content || '';
+    if (blockRef.current && blockRef.current.getAttribute('contenteditable') === 'true') {
+      if (blockRef.current.innerText !== (block.content || '')) {
+        blockRef.current.innerText = block.content || '';
+      }
     }
   }, [block.content, block.type]); // Run when content or type changes to reset the text properly
 
@@ -178,15 +180,46 @@ export default function EditorBlock({ blockId, pageId, index, onOpenSlashMenu, o
     return listNumber;
   };
 
+  const handleResizeStart = (e) => {
+    e.preventDefault();
+    const startX = e.clientX;
+    const startWidth = blockRef.current ? blockRef.current.offsetWidth : 500;
+    
+    const onMouseMove = (moveEvent) => {
+      const newWidth = startWidth + (moveEvent.clientX - startX);
+      if (blockRef.current) {
+        blockRef.current.style.width = `${Math.max(100, newWidth)}px`;
+      }
+    };
+    
+    const onMouseUp = (upEvent) => {
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+      
+      const newWidth = startWidth + (upEvent.clientX - startX);
+      updateBlock(blockId, { properties: { ...block.properties, width: Math.max(100, newWidth) } });
+    };
+    
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  };
+
   const renderBlockContent = () => {
     if (block.type === 'divider') {
       return <hr className={styles.divider} />;
     }
     if (block.type === 'image') {
       return (
-        <div className={styles.imageBlock}>
+        <div 
+          className={styles.mediaBlockContainer} 
+          ref={blockRef} 
+          style={{ width: block.properties?.width ? `${block.properties.width}px` : '100%' }}
+        >
           {block.properties?.url ? (
-            <img src={block.properties.url} alt="User added" className={styles.image} />
+            <>
+              <img src={block.properties.url} alt="User added" className={styles.image} />
+              <div className={styles.resizeHandle} onMouseDown={handleResizeStart} />
+            </>
           ) : (
             <div className={styles.imageUploadPlaceholder}>
               <input 
@@ -197,6 +230,51 @@ export default function EditorBlock({ blockId, pageId, index, onOpenSlashMenu, o
               />
               <span>Click to choose an image (Max 2MB)</span>
             </div>
+          )}
+        </div>
+      );
+    }
+    
+    if (block.type === 'embed') {
+      return (
+        <div 
+          className={styles.mediaBlockContainer} 
+          ref={blockRef} 
+          style={{ width: block.properties?.width ? `${block.properties.width}px` : '100%' }}
+        >
+          {block.properties?.url ? (
+            <>
+              <iframe 
+                src={block.properties.url} 
+                title="Embedded Content"
+                className={styles.embedIframe}
+                allowFullScreen
+              />
+              <div className={styles.resizeHandle} onMouseDown={handleResizeStart} />
+            </>
+          ) : (
+            <input 
+              type="text" 
+              placeholder="Paste embed link (e.g. YouTube embed URL) and press Enter..." 
+              className={styles.imageInput}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  let url = e.currentTarget.value;
+                  // Auto-convert standard youtube links to embed links if possible
+                  if (url.includes('youtube.com/watch?v=')) {
+                    url = url.replace('watch?v=', 'embed/');
+                    // Strip extra params
+                    const ampersandIndex = url.indexOf('&');
+                    if (ampersandIndex !== -1) {
+                      url = url.substring(0, ampersandIndex);
+                    }
+                  } else if (url.includes('youtu.be/')) {
+                    url = url.replace('youtu.be/', 'youtube.com/embed/');
+                  }
+                  updateBlock(blockId, { properties: { url } });
+                }
+              }}
+            />
           )}
         </div>
       );

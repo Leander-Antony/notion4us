@@ -114,6 +114,51 @@
   border-radius: var(--radius-sm);
 }
 
+.imageBlock {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.mediaBlockContainer {
+  position: relative;
+  margin: 12px 0;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.mediaBlockContainer:hover .resizeHandle {
+  opacity: 1;
+}
+
+.resizeHandle {
+  position: absolute;
+  top: 0;
+  right: -8px;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  background-color: var(--border-color);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  border-radius: 4px;
+}
+
+.resizeHandle:hover,
+.resizeHandle:active {
+  opacity: 1;
+  background-color: var(--accent-color);
+}
+
+
+.embedIframe {
+  width: 100%;
+  height: 400px;
+  border: none;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+}
+
 .imageInput {
   width: 100%;
   padding: 8px 12px;

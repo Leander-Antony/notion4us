@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { Type, Heading1, Heading2, Heading3, Quote, List, ListOrdered, CheckSquare, Code, Image, MoreHorizontal, Link } from 'lucide-react';
+import { Type, Heading1, Heading2, Heading3, Quote, List, ListOrdered, CheckSquare, Code, Image, MoreHorizontal, Link, Globe } from 'lucide-react';
 import useEditorStore from '../../store/useEditorStore';
 import styles from './SlashCommand.module.css';
 
@@ -13,6 +13,7 @@ const COMMANDS = [
   { id: 'bulleted-list', label: 'Bulleted List', icon: <List size={18} />, type: 'bulleted-list', description: 'Create a simple bulleted list.' },
   { id: 'numbered-list', label: 'Numbered List', icon: <ListOrdered size={18} />, type: 'numbered-list', description: 'Create a numbered list.' },
   { id: 'image', label: 'Image', icon: <Image size={18} />, type: 'image', description: 'Upload or embed an image.' },
+  { id: 'embed', label: 'Embed', icon: <Globe size={18} />, type: 'embed', description: 'Embed a link or website.' },
   { id: 'divider', label: 'Divider', icon: <MoreHorizontal size={18} />, type: 'divider', description: 'Visually divide blocks.' },
 ];
 
