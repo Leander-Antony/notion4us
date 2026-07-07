@@ -14,6 +14,7 @@ export default function PageEditor() {
   const { pages, updatePage } = useWorkspaceStore();
   const { pagesData, initializePage, addBlock, moveBlock } = useEditorStore();
   const [title, setTitle] = useState('');
+  const [icon, setIcon] = useState('');
   const [slashMenu, setSlashMenu] = useState(null); // { position: {top, left}, blockId }
 
   const page = pages[pageId];
@@ -22,6 +23,7 @@ export default function PageEditor() {
   useEffect(() => {
     if (page) {
       setTitle(page.title);
+      setIcon(page.icon);
     }
     initializePage(pageId);
   }, [pageId, page, initializePage]);
@@ -66,7 +68,23 @@ export default function PageEditor() {
     <div className={styles.container}>
       <div className={styles.pageContent}>
         {/* Cover and Icon can go here */}
-        <div className={styles.iconLarge}>{page.icon}</div>
+        <input 
+          type="text"
+          className={styles.iconLarge} 
+          value={icon}
+          onChange={(e) => {
+            // Usually an emoji is 2 characters (surrogate pair)
+            const val = e.target.value;
+            // Get the last typed character or emoji
+            const newIcon = val ? Array.from(val).pop() : '📄';
+            setIcon(newIcon);
+          }}
+          onBlur={() => {
+            if (page && icon !== page.icon) {
+              updatePage(pageId, { icon: icon || '📄' });
+            }
+          }}
+        />
         
         <input
           type="text"
