@@ -99,7 +99,7 @@ export default function Sidebar() {
       <div className={styles.workspaceHeader}>
         <div className={styles.workspaceInfo}>
           <div className={styles.avatar}>N</div>
-          <span className={styles.workspaceName}>My Workspace</span>
+          <span className={styles.workspaceName}>Notiq</span>
         </div>
       </div>
 

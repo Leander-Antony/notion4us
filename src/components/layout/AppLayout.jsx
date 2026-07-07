@@ -1,11 +1,13 @@
 import { Outlet } from 'react-router-dom';
 import { Panel, Group, Separator } from 'react-resizable-panels';
 import Sidebar from './Sidebar';
+import CommandPalette from '../CommandPalette';
 import styles from './AppLayout.module.css';
 
 export default function AppLayout() {
   return (
     <div className={styles.appContainer}>
+      <CommandPalette />
       <Group direction="horizontal">
         <Panel
           defaultSize={200}

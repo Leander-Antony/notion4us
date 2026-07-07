@@ -12,12 +12,8 @@ function App() {
   const { theme, setTheme } = useSettingsStore();
 
   useEffect(() => {
-    // Force dark theme as requested by user
-    if (theme !== 'dark') {
-      setTheme('dark');
-    }
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }, [theme, setTheme]);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   return (
     <Router>
