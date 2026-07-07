@@ -1,0 +1,50 @@
+.appContainer {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--bg-primary);
+}
+
+.sidebarPanel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-secondary);
+}
+
+.resizeHandle {
+  position: relative;
+  width: 1px;
+  background-color: var(--border-color);
+  cursor: col-resize;
+  transition: background-color var(--transition-fast);
+  z-index: 10;
+}
+
+.resizeHandle:hover,
+.resizeHandle[data-resize-handle-state="drag"] {
+  background-color: var(--accent-color);
+  width: 2px;
+  margin-left: -1px;
+}
+
+.resizeHandleInner {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+}
+
+.mainPanel {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  position: relative;
+}
+
+.mainContent {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}

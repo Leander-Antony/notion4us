@@ -1,0 +1,273 @@
+.blockContainer {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  margin: var(--block-padding-y) 0;
+  background-color: var(--bg-primary);
+}
+
+.isDragging {
+  background-color: var(--bg-secondary);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--radius-sm);
+  z-index: 100;
+}
+
+.blockHandles {
+  position: absolute;
+  left: -70px;
+  top: 0;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  padding: 4px;
+}
+
+.handlesVisible {
+  opacity: 1;
+}
+
+.handleBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 24px;
+  border-radius: 4px;
+  color: var(--text-secondary);
+}
+
+.handleBtn:hover {
+  background-color: var(--bg-hover);
+}
+
+.blockContent {
+  flex: 1;
+  min-width: 0; /* Prevents flex children from overflowing */
+}
+
+.editableBlock {
+  width: 100%;
+  outline: none;
+  min-height: 24px;
+  padding: 4px 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.editableBlock[contenteditable="true"]:empty:before {
+  content: attr(placeholder);
+  color: var(--text-secondary);
+  opacity: 0.5;
+  pointer-events: none;
+  display: block; /* For Firefox */
+}
+
+/* Typography styles matching Notion */
+.h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 4px;
+}
+
+.h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 1.4em;
+  margin-bottom: 1px;
+}
+
+.h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 1em;
+  margin-bottom: 1px;
+}
+
+.paragraph {
+  font-size: 16px;
+}
+
+.quote {
+  font-size: 16px;
+  border-left: 3px solid var(--text-primary);
+  padding-left: 14px;
+  margin: 4px 0;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 12px 0;
+  width: 100%;
+}
+
+.imageBlock {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.image {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+}
+
+.imageInput {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+}
+
+.imageInput:focus {
+  border-color: var(--accent-color);
+}
+
+.codeBlock {
+  width: 100%;
+  min-height: 60px;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: none;
+  outline: none;
+  resize: vertical;
+}
+
+.pageLink {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 6px;
+  margin: 4px 0;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: background-color var(--transition-fast);
+  text-decoration: underline;
+  text-decoration-color: var(--border-color);
+  text-underline-offset: 4px;
+}
+
+.pageLink:hover {
+  background-color: var(--bg-hover);
+}
+
+.pageLinkIcon {
+  margin-right: 6px;
+  color: var(--text-secondary);
+}
+
+.pageLinkSelector {
+  width: 100%;
+  margin: 8px 0;
+}
+
+.pageSelect {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  outline: none;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.pageSelect:focus {
+  border-color: var(--accent-color);
+}
+
+/* Image Upload Placeholder */
+.imageUploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 32px 16px;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  position: relative;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.imageUploadPlaceholder:hover {
+  background-color: var(--bg-hover);
+  border-color: var(--text-secondary);
+}
+
+.imageFileInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* List Styles */
+.listWrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.bullet {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-right: 8px;
+  margin-left: 4px;
+  color: var(--text-primary);
+  user-select: none;
+}
+
+.number {
+  font-size: 16px;
+  line-height: 1.5;
+  margin-right: 8px;
+  margin-left: 4px;
+  color: var(--text-primary);
+  user-select: none;
+  min-width: 16px;
+  text-align: right;
+}
+
+.todoCheckbox {
+  margin-top: 6px;
+  margin-right: 8px;
+  margin-left: 2px;
+  cursor: pointer;
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent-color);
+}
+
+.listContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.todoContent {
+  flex: 1;
+  min-width: 0;
+  transition: color var(--transition-fast);
+}
+
+.todoChecked {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}

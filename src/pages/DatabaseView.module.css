@@ -1,0 +1,109 @@
+.databaseContainer {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.viewTabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 16px;
+}
+
+.tab {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.tab:hover {
+  background-color: var(--bg-hover);
+}
+
+.activeTab {
+  color: var(--text-primary);
+  border-bottom-color: var(--accent-color);
+  font-weight: 500;
+}
+
+.tableWrapper {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+.th {
+  color: var(--text-secondary);
+  font-weight: 500;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-top: none;
+  background-color: var(--bg-secondary);
+  white-space: nowrap;
+}
+
+.th:first-child {
+  border-left: none;
+}
+
+.th:last-child {
+  border-right: none;
+}
+
+.td {
+  padding: 0;
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+
+.td:first-child {
+  border-left: none;
+}
+
+.td:last-child {
+  border-right: none;
+}
+
+.rowTitle {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.rowTitle:hover {
+  background-color: var(--bg-hover);
+}
+
+.pageIcon {
+  margin-right: 8px;
+  color: var(--text-secondary);
+}
+
+.cellContent {
+  padding: 8px;
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+}
+
+.addNewRow {
+  padding: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.addNewRow:hover {
+  background-color: var(--bg-hover);
+}
